@@ -17,7 +17,7 @@
           <div class="panel-body">
 
 
-            <form action="/auth" method="POST" accept-charset="UTF-8" role="form">
+            <form action="auth" method="POST" accept-charset="UTF-8" role="form">
               <fieldset>
                 <div class="form-group">
                   <input class="form-control" placeholder="id" name="id" type="text">

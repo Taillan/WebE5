@@ -1,0 +1,47 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>AuthServlet</servlet-name>
+  	<display-name>AuthServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.esiee.tp3.servlet.AuthServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>PersonRessource</servlet-name>
+  	<display-name>PersonRessource</display-name>
+  	<description></description>
+  	<servlet-class>com.esiee.tp3.servlet.PersonRessource</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Civility</servlet-name>
+  	<display-name>Civility</display-name>
+  	<description></description>
+  	<servlet-class>com.esiee.tp3.servlet.Civility</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Function</servlet-name>
+  	<display-name>Function</display-name>
+  	<description></description>
+  	<servlet-class>com.esiee.tp3.servlet.Function</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AuthServlet</servlet-name>
+  	<url-pattern>/AuthServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PersonRessource</servlet-name>
+  	<url-pattern>/PersonRessource</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Civility</servlet-name>
+  	<url-pattern>/Civility</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Function</servlet-name>
+  	<url-pattern>/Function</url-pattern>
+  </servlet-mapping>
+</web-app>

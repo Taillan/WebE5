@@ -1,4 +1,4 @@
-package com.esiee.tp2.servlet;
+package com.esiee.tp3.servlet;
 
 import java.io.IOException;
 import java.util.Map;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.esiee.tp2.domain.Person;
-import com.esiee.tp2.model.Datamodel;
+import com.esiee.tp3.domain.Person;
+import com.esiee.tp3.model.Datamodel;
 
 /**
  * Servlet implementation class AuthServlet

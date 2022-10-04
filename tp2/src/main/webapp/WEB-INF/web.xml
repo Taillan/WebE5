@@ -4,16 +4,6 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <filter>
-  	<filter-name>AuthFilter</filter-name>
-  	<display-name>AuthFilter</display-name>
-  	<description></description>
-  	<filter-class>com.esiee.tp2.filter.AuthFilter</filter-class>
-  </filter>
-  <filter-mapping>
-  	<filter-name>AuthFilter</filter-name>
-  	<url-pattern>/AuthFilter</url-pattern>
-  </filter-mapping>
   <servlet>
   	<servlet-name>AuthServlet</servlet-name>
   	<display-name>AuthServlet</display-name>

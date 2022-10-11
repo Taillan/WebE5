@@ -11,9 +11,6 @@ public class MailType  implements Serializable {
 	private String label;	
 
 	public MailType() {
-		super();
-		this.code = "000";
-		this.label = "Perso";
 	}
 	
 	public Long getId() {

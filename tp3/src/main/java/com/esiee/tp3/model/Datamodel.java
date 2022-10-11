@@ -1,6 +1,8 @@
 package com.esiee.tp3.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.esiee.tp3.domain.Civility;
@@ -14,7 +16,7 @@ public final class Datamodel {
 	HashMap<Long,Person> lPerson;
 	HashMap<Long,Civility> lCivility;
 	HashMap<Long,Function> lFunction;
-	HashMap<Long,Mail> lmail;
+	HashMap<Long,Mail> lMail;
 	HashMap<Long, MailType> lMailType;
 	
 
@@ -22,7 +24,7 @@ public final class Datamodel {
 		this.lPerson = new HashMap<Long,Person>();
 		this.lCivility = new HashMap<Long,Civility>();
 		this.lFunction = new HashMap<Long,Function>();
-		this.lmail = new HashMap<Long,Mail>();
+		this.lMail = new HashMap<Long,Mail>();
 		this.lMailType = new HashMap<Long,MailType>();
 		
 		this.init();
@@ -31,11 +33,6 @@ public final class Datamodel {
 	}
 	
 	private void init() {
-		this.setFunction(new Function());
-		this.setCivility(new Civility());
-		this.setMailType(new MailType());
-		lPerson.put(new Long(0), new Person());
-		lmail.put(new Long(0), new Mail());
 		
 	}
 
@@ -46,16 +43,23 @@ public final class Datamodel {
         return instance;
     }
 	
-	public Map<Long,Person> getlPerson() {
-		return lPerson;
+	public List<Person> getlPerson() {
+		return new ArrayList<Person>(lPerson.values());
 	}
 	
-	public Person getPerson(int id) {
+	public Person getPerson(Long id) {
 		return lPerson.get(id);
 	}
 	
-	public Map<Long,Civility> getlCivility() {
-		return lCivility;
+	public void setPerson(Person pers) {
+		if(pers.getId() == null) {
+			pers.setId(lCivility.size());
+		}
+		lPerson.put(new Long(lPerson.size()), pers);
+	}
+	
+	public List<Civility> getlCivility() {
+		return new ArrayList<Civility>(lCivility.values());
 	}
 
 	public Civility getCivility(Long id) {
@@ -90,20 +94,31 @@ public final class Datamodel {
 		}
 		lMailType.put(new Long(lMailType.size()), mailType);
 	}
-	
-	public Map<Long,Function> getlFunction() {
-		return lFunction;
+
+	public Mail getMail(Long id) {
+		return lMail.get(id);
 	}
-	public Map<Long, Mail> getLmail() {
-		return lmail;
+	
+	public void setMail(Mail mail) {
+		if(mail.getId() == null) {
+			mail.setId(lMail.size());
+		}
+		lMail.put(new Long(lMail.size()), mail);
+	}
+	
+	public List<Function> getlFunction() {
+		return new ArrayList<Function>(lFunction.values());
+	}
+	public List< Mail> getlMail() {
+		return new ArrayList<Mail>(lMail.values());
 	}
 
 	public void setLmail(HashMap<Long, Mail> lmail) {
-		this.lmail = lmail;
+		this.lMail = lmail;
 	}
 
-	public Map<Long, MailType> getlMailType() {
-		return lMailType;
+	public List< MailType> getlMailType() {
+		return new ArrayList<MailType>(lMailType.values());
 	}
 
 	public void setlMailType(HashMap<Long, MailType> lMailType) {

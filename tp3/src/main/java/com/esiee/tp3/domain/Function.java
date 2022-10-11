@@ -11,10 +11,8 @@ public class Function implements Serializable {
 	private String label;
 	
 	public Function () {
-		super();
-		this.code = "01";
-		this.label = "cadre";
 	}
+	
 	public Long getId() {
 		return id;
 	}

@@ -1,6 +1,7 @@
 package com.esiee.tp3.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -77,7 +78,7 @@ public class CivilityRessource extends HttpServlet {
 		return database.getCivility(id);
 	}
 
-	protected Map<Long, Civility> findAll() {
+	protected List<Civility> findAll() {
 		Datamodel database = Datamodel.getInstance();
 		return database.getlCivility();
 	}

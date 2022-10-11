@@ -2,35 +2,36 @@ package com.esiee.tp3.domain;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.esiee.tp3.model.Datamodel;
 
 public class Mail implements Serializable {
 
 	private static final long serialVersionUID =1L;
-	private int id;
+	private Long id;
 	private String address;
 
 	private MailType type;
 	
 	public Mail() {
-		this.id = 0;
-		this.address = "mail@host.com";
-		this.type = new MailType();
 	}
 	
 	public MailType getType() {
 		return type;
+	}
+	
+	public Long getTypeId() {
+		return type.getId();
 	}
 
 	public void setType(MailType type) {
 		this.type = type;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.id = new Long(id);
 	}
 	public String getAddress() {
 		return address;

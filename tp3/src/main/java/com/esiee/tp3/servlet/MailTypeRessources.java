@@ -1,6 +1,7 @@
 package com.esiee.tp3.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -11,14 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.esiee.tp3.domain.MailType;
-import com.esiee.tp3.domain.Mail;
 import com.esiee.tp3.model.Datamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class Function
  */
-@WebServlet("/api/ressources/mail/*")
+@WebServlet("/api/ressources/mailtype/*")
 public class MailTypeRessources extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -57,12 +57,12 @@ public class MailTypeRessources extends HttpServlet {
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
 		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		Mail mail = mapper.readValue(body, Mail.class);
-		if (mail.getId() != null) {
+		MailType mType = mapper.readValue(body, MailType.class);
+		if (mType.getId() != null) {
 			throw new ServletException("id must be null !");
 		}
-		save(mail);
-		json = mapper.writeValueAsString(mail);
+		save(mType);
+		json = mapper.writeValueAsString(mType);
 		resp.setStatus(201);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
@@ -73,7 +73,7 @@ public class MailTypeRessources extends HttpServlet {
 		return database.getMailType(id);
 	}
 
-	protected Map<Long, MailType> findAll() {
+	protected List< MailType> findAll() {
 		Datamodel database = Datamodel.getInstance();
 		return database.getlMailType();
 	}

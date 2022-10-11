@@ -10,9 +10,6 @@ public class Civility  implements Serializable {
 	private String label;
 	
 	public Civility() {
-		super();
-		this.code = "33";
-		this.label = "FR";
 	}
 	
 	public Long getId() {

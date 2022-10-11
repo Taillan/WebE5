@@ -1,6 +1,7 @@
 package com.esiee.tp3.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -10,14 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.esiee.tp3.domain.MailType;
+import com.esiee.tp3.domain.Mail;
 import com.esiee.tp3.model.Datamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Servlet implementation class Function
  */
-@WebServlet("/api/ressources/mailtype/*")
+@WebServlet("/api/ressources/mail/*")
 public class MailRessources extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -56,30 +57,31 @@ public class MailRessources extends HttpServlet {
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
 		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		MailType mType = mapper.readValue(body, MailType.class);
-		if (mType.getId() != null) {
+		Mail mail = mapper.readValue(body, Mail.class);
+		if (mail.getId() != null) {
 			throw new ServletException("id must be null !");
 		}
-		save(mType);
-		json = mapper.writeValueAsString(mType);
+		save(mail);
+		json = mapper.writeValueAsString(mail);
 		resp.setStatus(201);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
 	}
 
-	protected MailType findOne(Long id) {
+	protected Mail findOne(Long id) {
 		Datamodel database = Datamodel.getInstance();
-		return database.getMailType(id);
+		return database.getMail(id);
 	}
 
-	protected Map<Long, MailType> findAll() {
+	protected List<Mail> findAll() {
 		Datamodel database = Datamodel.getInstance();
-		return database.getlMailType();
+		return database.getlMail();
 	}
 
-	protected void save(MailType mType) {
+	protected void save(Mail mail) {
 		Datamodel database = Datamodel.getInstance();
-		database.setMailType(mType);
+		mail.setType(database.getMailType(mail.getTypeId()));
+		database.setMail(mail);
 	}
 
 

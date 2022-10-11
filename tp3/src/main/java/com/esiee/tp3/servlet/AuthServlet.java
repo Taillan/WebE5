@@ -1,6 +1,7 @@
 package com.esiee.tp3.servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -52,7 +53,7 @@ public class AuthServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		Datamodel database = Datamodel.getInstance();
-		Map<Long,Person> lPerson = database.getlPerson();
+		List<Person> lPerson = database.getlPerson();
 		
 		for( int i =0; i < lPerson.size();i++) {
 			if(lPerson.get(i).getLogin().equals(id)) {

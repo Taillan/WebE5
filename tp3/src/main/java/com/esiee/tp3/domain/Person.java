@@ -10,7 +10,7 @@ public class Person implements Serializable{
 	
 	private static final long serialVersionUID =1L;
 	
-	private int id;
+	private Long id;
 	private String lastname;
 	private String firstname;
 	private String mobilPhone;
@@ -20,19 +20,9 @@ public class Person implements Serializable{
 	private Civility civility;
 
 	@JsonIgnore
-	private List addMail;
+	private List<Mail> addMail;
 	
 	public Person() {
-		super();
-		this.id = 0;
-		this.lastname = "";
-		this.firstname = "";
-		this.addMail = new ArrayList<Mail>();
-		this.mobilPhone = "";
-		this.login = "admin";
-		this.password = "azerty";
-		this.function = null ;
-		this.civility = null;
 	}
 	
     public void finalize()
@@ -52,11 +42,11 @@ public class Person implements Serializable{
 	public void setCivility(Civility civility) {
 		this.civility = civility;
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.id = new Long(id);
 	}
 	public String getLastname() {
 		return lastname;
@@ -70,7 +60,7 @@ public class Person implements Serializable{
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-	public List getMail() {
+	public List<Mail> getMail() {
 		return addMail;
 	}
 	public void setMail(Mail Mail) {

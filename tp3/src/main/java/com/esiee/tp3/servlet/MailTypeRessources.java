@@ -10,40 +10,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.esiee.tp3.domain.Civility;
+import com.esiee.tp3.domain.MailType;
+import com.esiee.tp3.domain.Mail;
 import com.esiee.tp3.model.Datamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Servlet implementation class Civility
+ * Servlet implementation class Function
  */
-
-@WebServlet("/api/ressources/civility/*")
-public class CivilityRessource extends HttpServlet {
+@WebServlet("/api/ressources/mail/*")
+public class MailTypeRessources extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public MailTypeRessources() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public CivilityRessource() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
+    @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
 
 		if (RessourceUriAnalyser.hasIdParameter(req)) {
-			System.out.println("Request Have one parameter");
 			Long id = RessourceUriAnalyser.getIdParameter(req);
-			System.out.println("id is " + id);
 			json = mapper.writeValueAsString(findOne(id));
 			System.out.println();
 		} else {
@@ -54,37 +51,37 @@ public class CivilityRessource extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
 		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-		Civility civ = mapper.readValue(body, Civility.class);
-		if (civ.getId() != null) {
+		Mail mail = mapper.readValue(body, Mail.class);
+		if (mail.getId() != null) {
 			throw new ServletException("id must be null !");
 		}
-		save(civ);
-		json = mapper.writeValueAsString(civ);
+		save(mail);
+		json = mapper.writeValueAsString(mail);
 		resp.setStatus(201);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
 	}
 
-	protected Civility findOne(Long id) {
+	protected MailType findOne(Long id) {
 		Datamodel database = Datamodel.getInstance();
-		return database.getCivility(id);
+		return database.getMailType(id);
 	}
 
-	protected Map<Long, Civility> findAll() {
+	protected Map<Long, MailType> findAll() {
 		Datamodel database = Datamodel.getInstance();
-		return database.getlCivility();
+		return database.getlMailType();
 	}
 
-	protected void save(Civility civ) {
+	protected void save(MailType mType) {
 		Datamodel database = Datamodel.getInstance();
-		database.setCivility(civ);
+		database.setMailType(mType);
 	}
+
 
 }

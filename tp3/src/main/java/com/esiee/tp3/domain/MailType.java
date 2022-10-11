@@ -6,22 +6,21 @@ public class MailType  implements Serializable {
 
 	private static final long serialVersionUID =1L;
 	
-	private int id;
+	private Long id;
 	private String code;
 	private String label;	
 
 	public MailType() {
 		super();
-		this.id = 0;
 		this.code = "000";
 		this.label = "Perso";
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.id = new Long(id);
 	}
 	public String getCode() {
 		return code;

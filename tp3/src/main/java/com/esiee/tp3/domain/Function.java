@@ -6,21 +6,20 @@ public class Function implements Serializable {
 
 	private static final long serialVersionUID =1L;
 
-	private int id;
+	private Long id;
 	private String code;
 	private String label;
 	
 	public Function () {
 		super();
-		this.id = 0 ;
-		this.code = "";
-		this.label = "";
+		this.code = "01";
+		this.label = "cadre";
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.id = new Long(id);
 	}
 	public String getCode() {
 		return code;

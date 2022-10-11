@@ -27,7 +27,7 @@ public class Person implements Serializable{
 		this.id = 0;
 		this.lastname = "";
 		this.firstname = "";
-		this.addMail = new ArrayList<mail>();
+		this.addMail = new ArrayList<Mail>();
 		this.mobilPhone = "";
 		this.login = "admin";
 		this.password = "azerty";
@@ -73,7 +73,7 @@ public class Person implements Serializable{
 	public List getMail() {
 		return addMail;
 	}
-	public void setMail(mail Mail) {
+	public void setMail(Mail Mail) {
 		this.addMail.add(Mail);
 	}
 	public String getMobilPhone() {

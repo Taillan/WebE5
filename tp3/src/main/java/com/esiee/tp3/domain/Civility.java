@@ -11,7 +11,6 @@ public class Civility  implements Serializable {
 	
 	public Civility() {
 		super();
-		this.id = new Long(0);
 		this.code = "33";
 		this.label = "FR";
 	}

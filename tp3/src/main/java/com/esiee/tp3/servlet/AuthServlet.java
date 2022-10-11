@@ -52,7 +52,7 @@ public class AuthServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		Datamodel database = Datamodel.getInstance();
-		Map<Integer,Person> lPerson = database.getlPerson();
+		Map<Long,Person> lPerson = database.getlPerson();
 		
 		for( int i =0; i < lPerson.size();i++) {
 			if(lPerson.get(i).getLogin().equals(id)) {
@@ -64,10 +64,10 @@ public class AuthServlet extends HttpServlet {
 		}
 		if(session.getAttribute("id") == null) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Auth Failed");
-			response.encodeRedirectURL("/tp2/LoggingFail.jsp");
+			response.encodeRedirectURL("/tp3/LoggingFail.jsp");
 		}
 		else{
-			response.encodeRedirectURL("/tp2/protected/File.jsp");
+			response.encodeRedirectURL("/tp3/protected/File.jsp");
 		}
 		// TODO	VErif
 			//throw ServletEcep unauthorized access

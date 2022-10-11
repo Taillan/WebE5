@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class mail implements Serializable {
+public class Mail implements Serializable {
 
 	private static final long serialVersionUID =1L;
 	private int id;
@@ -12,7 +12,7 @@ public class mail implements Serializable {
 
 	private MailType type;
 	
-	public mail() {
+	public Mail() {
 		this.id = 0;
 		this.address = "mail@host.com";
 		this.type = new MailType();

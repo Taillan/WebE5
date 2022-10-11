@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.esiee.tp3.domain.Function;
 import com.esiee.tp3.domain.Mail;
 import com.esiee.tp3.model.Datamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -67,7 +68,45 @@ public class MailRessources extends HttpServlet {
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
 	}
+	
 
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String json = null;
+		ObjectMapper mapper = new  ObjectMapper();
+		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+		Mail mail = mapper.readValue(body, Mail.class);
+		if(mail.getId() == null) {
+			throw new ServletException("id is required !");
+		}
+		save(mail);
+		json = mapper.writeValueAsString(mail);
+		resp.setStatus(200);
+		resp.setContentType("application/json");
+		resp.getWriter().write(json);
+	}
+
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		
+		if(RessourceUriAnalyser.hasIdParameter(req)) {
+			Long id = RessourceUriAnalyser.getIdParameter(req);
+			Mail obj = findOne(id);
+			if(obj == null) {
+				throw new ServletException("Product not found for id \'"+id+"\' !");
+			}
+			delete(obj);
+			resp.setStatus(200);
+		}else {
+			throw new ServletException("id is required");
+		}
+	}
+
+	protected void delete(Mail obj) {
+		Datamodel database = Datamodel.getInstance();
+		database.delMail(obj);
+	}
+	
 	protected Mail findOne(Long id) {
 		Datamodel database = Datamodel.getInstance();
 		return database.getMail(id);

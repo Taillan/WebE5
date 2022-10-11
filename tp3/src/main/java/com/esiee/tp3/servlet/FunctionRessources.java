@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.esiee.tp3.domain.Civility;
 import com.esiee.tp3.domain.Function;
 import com.esiee.tp3.domain.Function;
 import com.esiee.tp3.model.Datamodel;
@@ -66,6 +67,43 @@ public class FunctionRessources extends HttpServlet {
 		resp.setStatus(201);
 		resp.setContentType("application/json");
 		resp.getWriter().write(json);
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String json = null;
+		ObjectMapper mapper = new  ObjectMapper();
+		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+		Function fct = mapper.readValue(body, Function.class);
+		if(fct.getId() == null) {
+			throw new ServletException("id is required !");
+		}
+		save(fct);
+		json = mapper.writeValueAsString(fct);
+		resp.setStatus(200);
+		resp.setContentType("application/json");
+		resp.getWriter().write(json);
+	}
+	
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		
+		if(RessourceUriAnalyser.hasIdParameter(req)) {
+			Long id = RessourceUriAnalyser.getIdParameter(req);
+			Function obj = findOne(id);
+			if(obj == null) {
+				throw new ServletException("Product not found for id \'"+id+"\' !");
+			}
+			delete(obj);
+			resp.setStatus(200);
+		}else {
+			throw new ServletException("id is required");
+		}
+	}
+
+	protected void delete(Function obj) {
+		Datamodel database = Datamodel.getInstance();
+		database.delFunction(obj);
 	}
 
 	protected Function findOne(Long id) {

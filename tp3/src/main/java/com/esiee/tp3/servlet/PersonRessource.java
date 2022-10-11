@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.esiee.tp3.domain.Mail;
+import com.esiee.tp3.domain.MailType;
 import com.esiee.tp3.domain.Person;
 import com.esiee.tp3.model.Datamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,11 +40,22 @@ public class PersonRessource extends HttpServlet {
 		
 		String json = null;
 		ObjectMapper mapper = new ObjectMapper();
-
 		if (RessourceUriAnalyser.hasIdParameter(req)) {
 			Long id = RessourceUriAnalyser.getIdParameter(req);
-			json = mapper.writeValueAsString(findOne(id));
-			System.out.println();
+			if(RessourceUriAnalyser.hasFirstRelationParameter(req)) {
+				String relation = RessourceUriAnalyser.getFirstRelationParameter(req);
+				if("civility".equalsIgnoreCase(relation)) {
+					json = mapper.writeValueAsString(findOne(id).getCivility());
+				}
+				if("mail".equalsIgnoreCase(relation)) {
+					json = mapper.writeValueAsString(findOne(id).getMail());
+				}
+				if("function".equalsIgnoreCase(relation)) {
+					json = mapper.writeValueAsString(findOne(id).getFunction());
+				}
+			}else {
+				json = mapper.writeValueAsString(findOne(id));
+			}
 		} else {
 			json = mapper.writeValueAsString(findAll());
 		}
@@ -51,6 +63,7 @@ public class PersonRessource extends HttpServlet {
 		resp.getWriter().write(json);
 	}
 
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -69,6 +82,43 @@ public class PersonRessource extends HttpServlet {
 		resp.getWriter().write(json);
 	}
 
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String json = null;
+		ObjectMapper mapper = new  ObjectMapper();
+		String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+		Person pers = mapper.readValue(body, Person.class);
+		if(pers.getId() == null) {
+			throw new ServletException("id is required !");
+		}
+		save(pers);
+		json = mapper.writeValueAsString(pers);
+		resp.setStatus(200);
+		resp.setContentType("application/json");
+		resp.getWriter().write(json);
+	}
+
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		
+		if(RessourceUriAnalyser.hasIdParameter(req)) {
+			Long id = RessourceUriAnalyser.getIdParameter(req);
+			Person obj = findOne(id);
+			if(obj == null) {
+				throw new ServletException("Product not found for id \'"+id+"\' !");
+			}
+			delete(obj);
+			resp.setStatus(200);
+		}else {
+			throw new ServletException("id is required");
+		}
+	}
+
+	protected void delete(Person obj) {
+		Datamodel database = Datamodel.getInstance();
+		database.delPerson(obj);
+	}
+	
 	protected Person findOne(Long id) {
 		Datamodel database = Datamodel.getInstance();
 		return database.getPerson(id);
@@ -81,10 +131,7 @@ public class PersonRessource extends HttpServlet {
 
 	protected void save(Person pers) {
 		Datamodel database = Datamodel.getInstance();
-/*
-		for(Mail mail : pers.getMail()) {
-			pers.setMail(database.getMail(mail.getId()));
-		}*/
+
 		pers.setCivility(database.getCivility(pers.getCivility().getId()));
 		pers.setFunction(database.getFunction(pers.getFunction().getId()));
 		database.setPerson(pers);

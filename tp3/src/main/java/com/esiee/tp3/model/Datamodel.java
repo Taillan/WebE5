@@ -55,7 +55,7 @@ public final class Datamodel {
 		if(pers.getId() == null) {
 			pers.setId(lCivility.size());
 		}
-		lPerson.put(new Long(lPerson.size()), pers);
+		lPerson.put(pers.getId(), pers);
 	}
 	
 	public List<Civility> getlCivility() {
@@ -70,7 +70,7 @@ public final class Datamodel {
 		if(civ.getId() == null) {
 			civ.setId(lCivility.size());
 		}
-		lCivility.put(new Long(lCivility.size()), civ);
+		lCivility.put(civ.getId(), civ);
 	}
 
 	public Function getFunction(Long id) {
@@ -81,7 +81,7 @@ public final class Datamodel {
 		if(fct.getId() == null) {
 			fct.setId(lFunction.size());
 		}
-		lFunction.put(new Long(lFunction.size()), fct);
+		lFunction.put(fct.getId(), fct);
 	}
 
 	public MailType getMailType(Long id) {
@@ -92,7 +92,7 @@ public final class Datamodel {
 		if(mailType.getId() == null) {
 			mailType.setId(lMailType.size());
 		}
-		lMailType.put(new Long(lMailType.size()), mailType);
+		lMailType.put(mailType.getId(), mailType);
 	}
 
 	public Mail getMail(Long id) {
@@ -103,7 +103,7 @@ public final class Datamodel {
 		if(mail.getId() == null) {
 			mail.setId(lMail.size());
 		}
-		lMail.put(new Long(lMail.size()), mail);
+		lMail.put(mail.getId(), mail);
 	}
 	
 	public List<Function> getlFunction() {
@@ -123,5 +123,25 @@ public final class Datamodel {
 
 	public void setlMailType(HashMap<Long, MailType> lMailType) {
 		this.lMailType = lMailType;
+	}
+	
+	public void delCivility(Civility obj) {
+		lCivility.remove(obj.getId());
+	}
+	
+	public void delFunction(Function obj) {
+		lFunction.remove(obj.getId());
+	}
+	
+	public void delMail(Mail obj) {
+		lMail.remove(obj.getId());
+	}
+	
+	public void delMailType(MailType obj) {
+		lMailType.remove(obj.getId());
+	}
+	
+	public void delPerson(Person obj) {
+		lPerson.remove(obj.getId());
 	}
 }
